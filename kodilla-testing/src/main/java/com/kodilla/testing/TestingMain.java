@@ -1,11 +1,11 @@
 package com.kodilla.testing;
 
+import com.kodilla.testing.calculator.Calculator;
 import com.kodilla.testing.user.SimpleUser;
-import com.kodilla.testing.kalkulator.Kalkulator;
 
 public class TestingMain {
     public static void main(String[] args){
-        SimpleUser simpleUser = new SimpleUser("theForumUser");
+        SimpleUser simpleUser = new SimpleUser("theForumUser", "John Smith");
 
         String result = simpleUser.getUsername();
 
@@ -16,15 +16,15 @@ public class TestingMain {
         }
         System.out.println(" - - - - - -  - - - -  - - - - - - -");
 
-        Kalkulator kalkulator = new Kalkulator(81, 9);
+        Calculator calculator = new Calculator();
 
-        int addAToBResult = kalkulator.addAToB();
-        int subtructBFromAResult = kalkulator.subtractBFromA();
+        int addResult = calculator.add(25, 333);
+        int subtructResult = calculator.subtract(121, 31);
 
-        if (addAToBResult == kalkulator.getA() + kalkulator.getB() && subtructBFromAResult == kalkulator.getA() - kalkulator.getB()) {
-            System.out.println("Test - pierwszy test jednostkowy: test OK");
+        if ((addResult == 358) && (subtructResult == 90)) {
+            System.out.println("Calculator test: OK");
         } else {
-            System.out.println("Test - pierwszy test jednostkowy: Error!");
+            System.out.println("Error!");
         }
     }
 }
