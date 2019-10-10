@@ -32,7 +32,6 @@ public class CollectionTestSuite {
     public void testOddNumbersExterminatorNormalList() {
         OddNumbersExterminator oddNumbersExterminator = new OddNumbersExterminator();
         ArrayList<Integer> numbersGenerator = new ArrayList<>();
-        ArrayList<Integer> checkNumbers = oddNumbersExterminator.exterminate(numbersGenerator);
         ArrayList<Integer> checkEvenNumbers = new ArrayList<>();
 
         for (int i = 0; i < 100; i++) {
