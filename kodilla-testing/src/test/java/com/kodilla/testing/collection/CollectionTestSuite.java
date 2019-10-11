@@ -19,13 +19,10 @@ public class CollectionTestSuite {
     @Test
     public void testOddNumbersExterminatorEmptyList() {
         OddNumbersExterminator oddNumbersExterminator = new OddNumbersExterminator();
-        ArrayList <Integer> emptyList = new ArrayList<>();
-        ArrayList <Integer> checkNumbersEmpty = oddNumbersExterminator.exterminate(emptyList);
-        if (checkNumbersEmpty.equals(emptyList)) {
-            System.out.println("test OK");
-        } else {
-            System.out.println("Error!");
-        }
+        ArrayList<Integer> emptyList = new ArrayList<>();
+        ArrayList<Integer> checkNumbersEmpty = oddNumbersExterminator.exterminate(emptyList);
+
+        Assert.assertEquals(checkNumbersEmpty, (oddNumbersExterminator.exterminate(checkNumbersEmpty)));
     }
 
     @Test
@@ -40,11 +37,6 @@ public class CollectionTestSuite {
                 checkEvenNumbers.add(numbersGenerator.get(i));
             }
         }
-
-        if (checkEvenNumbers.equals(oddNumbersExterminator.exterminate(checkEvenNumbers))) {
-            System.out.println("test OK");
-        } else {
-            System.out.println("Error!");
-        }
+        Assert.assertEquals(checkEvenNumbers, (oddNumbersExterminator.exterminate(checkEvenNumbers)));
     }
 }
