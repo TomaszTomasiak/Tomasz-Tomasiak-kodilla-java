@@ -22,21 +22,25 @@ public class CollectionTestSuite {
         ArrayList<Integer> emptyList = new ArrayList<>();
         ArrayList<Integer> checkNumbersEmpty = oddNumbersExterminator.exterminate(emptyList);
 
-        Assert.assertEquals(checkNumbersEmpty, (oddNumbersExterminator.exterminate(checkNumbersEmpty)));
+        Assert.assertEquals(checkNumbersEmpty, emptyList);
     }
 
     @Test
     public void testOddNumbersExterminatorNormalList() {
         OddNumbersExterminator oddNumbersExterminator = new OddNumbersExterminator();
-        ArrayList<Integer> numbersGenerator = new ArrayList<>();
-        ArrayList<Integer> checkEvenNumbers = new ArrayList<>();
+        ArrayList<Integer> checkNumbers = new ArrayList<>();
+        ArrayList<Integer> expected = new ArrayList<>();
 
-        for (int i = 0; i < 100; i++) {
-            numbersGenerator.add(i);
-            if (numbersGenerator.get(i) % 2 == 0) {
-                checkEvenNumbers.add(numbersGenerator.get(i));
-            }
-        }
-        Assert.assertEquals(checkEvenNumbers, (oddNumbersExterminator.exterminate(checkEvenNumbers)));
+        checkNumbers.add(2);
+        checkNumbers.add(3);
+        checkNumbers.add(4);
+        checkNumbers.add(5);
+
+        expected.add(2);
+        expected.add(4);
+
+
+        ArrayList<Integer> evenNumbers = oddNumbersExterminator.exterminate(checkNumbers);
+        Assert.assertEquals(evenNumbers, expected);
     }
 }

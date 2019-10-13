@@ -2,6 +2,7 @@ package com.kodilla.testing.shape;
 
 public class Triangle implements Shape {
 
+
     String shapeName;
     double field;
 
@@ -9,6 +10,7 @@ public class Triangle implements Shape {
         this.shapeName = shapeName;
         this.field = field;
     }
+
 
     @Override
     public String getShapeName() {
