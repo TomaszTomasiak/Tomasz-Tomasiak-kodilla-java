@@ -41,7 +41,6 @@ public class ForumTestSuite {
         ForumUser forumUser = new ForumUser("mrsmith", "John Smith");
         ForumPost thePost = new ForumPost("Hello everyone, " +
                 "this is my first contribution here!", "mrsmith");
-
         //When
         forumUser.addComment(thePost, "mrsmith", "Thank you for all good words!");
 

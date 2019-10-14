@@ -18,15 +18,20 @@ public class CollectionTestSuite {
 
     @Test
     public void testOddNumbersExterminatorEmptyList() {
+        //Given
         OddNumbersExterminator oddNumbersExterminator = new OddNumbersExterminator();
         ArrayList<Integer> emptyList = new ArrayList<>();
+
+        //When
         ArrayList<Integer> checkNumbersEmpty = oddNumbersExterminator.exterminate(emptyList);
 
+        //Then
         Assert.assertEquals(checkNumbersEmpty, emptyList);
     }
 
     @Test
     public void testOddNumbersExterminatorNormalList() {
+        //Given
         OddNumbersExterminator oddNumbersExterminator = new OddNumbersExterminator();
         ArrayList<Integer> checkNumbers = new ArrayList<>();
         ArrayList<Integer> expected = new ArrayList<>();
@@ -39,8 +44,10 @@ public class CollectionTestSuite {
         expected.add(2);
         expected.add(4);
 
-
+        //When
         ArrayList<Integer> evenNumbers = oddNumbersExterminator.exterminate(checkNumbers);
+
+        //Then
         Assert.assertEquals(evenNumbers, expected);
     }
 }
