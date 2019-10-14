@@ -13,12 +13,12 @@ public class Circle implements Shape {
 
     @Override
     public String getShapeName() {
-        return null;
+        return shapeName;
     }
 
     @Override
     public double getField() {
-        return 0;
+        return field;
     }
 
     @Override

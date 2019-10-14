@@ -16,14 +16,16 @@ public class ShapeCollector {
     }
 
     public Shape addFigure(Shape shape) {
-        //Shape theShape;
-        //theShape = new Shape(shapeName, field);
-        // figures.add(theShape);
+        figures.add(shape);
         return shape;
     }
 
     public boolean removeFigure(Shape shape) {
-
+        boolean result = false;
+        if (figures.contains(shape)){
+            figures.remove(shape);
+            result = true;
+        }
         return true;
     }
 
@@ -32,11 +34,9 @@ public class ShapeCollector {
         return figure;
     }
 
-    public String showFigures() {
+    public String showFigures(int n) {
+        String show = getFigure(n).getShapeName();
+        return show;
 
-
-        String show;
-       // show = figures;
-        return "";
     }
 }

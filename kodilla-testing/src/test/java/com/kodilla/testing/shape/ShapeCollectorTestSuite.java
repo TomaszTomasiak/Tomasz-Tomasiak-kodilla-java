@@ -25,7 +25,7 @@ public class ShapeCollectorTestSuite {
     }
 
     @Test
-    public void testAddFigure(Shape shape) {
+    public void testAddFigure() {
         //Given
         ShapeCollector shapeCollector = new ShapeCollector();
         ArrayList<Shape> getExpected = new ArrayList<>();
@@ -40,7 +40,7 @@ public class ShapeCollectorTestSuite {
     }
 
     @Test
-    public void testRemoveFigure(Shape shape) {
+    public void testRemoveFigure() {
         //Given
         ShapeCollector shapeCollector = new ShapeCollector();
         Square square = new Square("square", 10.7);
@@ -54,16 +54,16 @@ public class ShapeCollectorTestSuite {
     }
 
     @Test
-    public void testShowFigures(Shape shape) {
+    public void testShowFigures() {
 
         //Given
         ShapeCollector shapeCollector = new ShapeCollector();
-        ArrayList <String> namesList = new ArrayList<>();
-        namesList.add("square");
-        String expected = namesList.get(0);
-
+        String expected = "square";
+        Square square = new Square("square", 10.7);
+        shapeCollector.addFigure(square) ;
         //When
-        String showCheck = shapeCollector.showFigures();
+
+        String showCheck = shapeCollector.showFigures(0);
 
         //Then
         Assert.assertEquals(expected, showCheck);

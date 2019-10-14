@@ -12,14 +12,13 @@ public class Square implements Shape {
 
     @Override
     public String getShapeName() {
-        return null;
+        return shapeName;
     }
 
     @Override
     public double getField() {
-        return 0;
+        return field;
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
