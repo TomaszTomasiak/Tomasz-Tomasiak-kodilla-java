@@ -28,7 +28,6 @@ public class ShapeCollectorTestSuite {
     public void testAddFigure() {
         //Given
         ShapeCollector shapeCollector = new ShapeCollector();
-        ArrayList<Shape> getExpected = new ArrayList<>();
         Square square = new Square("square", 10.7);
 
         //When
