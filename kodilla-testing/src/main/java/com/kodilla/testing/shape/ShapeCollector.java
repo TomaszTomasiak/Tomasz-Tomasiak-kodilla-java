@@ -35,8 +35,8 @@ public class ShapeCollector {
     }
 
     public String showFigures(int n) {
-        String show = getFigure(n).getShapeName();
-        return show;
+
+        return getFigure(n).getShapeName();
 
     }
 }
