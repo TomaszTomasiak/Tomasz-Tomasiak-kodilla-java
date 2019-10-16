@@ -41,17 +41,38 @@ public class ForumStatistics {
         numberOfUsers = statistics.usersNames().size();
         numberOfPosts = statistics.postsCount();
         numberOfComments = statistics.commentsCount();
-        averageNumberOfPostsPerUser = numberOfPosts / numberOfUsers;
-        averageNumberOfCommentsPerUser = numberOfComments / numberOfUsers;
-        averageNumberOfCommentsPerPost = numberOfComments / numberOfPosts;
 
+        if (numberOfComments != 0 && numberOfUsers != 0) {
+            averageNumberOfCommentsPerUser = numberOfComments / numberOfPosts;
+            averageNumberOfCommentsPerPost = 0;
+            averageNumberOfPostsPerUser = 0;
 
+        } else if (numberOfPosts != 0 && numberOfUsers != 0) {
+            averageNumberOfPostsPerUser = numberOfPosts / numberOfUsers;
+            averageNumberOfCommentsPerPost = 0;
+            averageNumberOfCommentsPerPost = 0;
+
+        } else if (numberOfPosts != 0 && numberOfComments != 0) {
+            averageNumberOfPostsPerUser = 0;
+            averageNumberOfCommentsPerUser = 0;
+            averageNumberOfCommentsPerPost = numberOfComments / numberOfPosts;
+
+        } else if (numberOfUsers != 0 && numberOfComments != 0 && numberOfPosts != 0){
+            averageNumberOfPostsPerUser = numberOfPosts / numberOfUsers;
+            averageNumberOfCommentsPerUser = numberOfComments / numberOfPosts;
+            averageNumberOfCommentsPerPost = numberOfComments / numberOfPosts;
+
+        } else {
+            averageNumberOfPostsPerUser = 0;
+            averageNumberOfCommentsPerUser = 0;
+            averageNumberOfCommentsPerPost = 0;
+        }
     }
 
     public String showStatistics() {
 
         //String tmp = numberOfUsers + ", " + numberOfPosts + ", " + numberOfComments;
-        return null;
+        return "";
     }
 
 }
