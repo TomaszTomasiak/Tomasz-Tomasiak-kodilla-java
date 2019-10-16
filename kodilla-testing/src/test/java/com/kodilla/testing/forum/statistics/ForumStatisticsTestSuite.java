@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -19,41 +20,42 @@ public class ForumStatisticsTestSuite {
         //Given
         Statistics statisticksMock = mock(Statistics.class);
         ForumStatistics forumStatistics = new ForumStatistics();
+        forumStatistics.calculateAdvStatistics(statisticksMock);
 
-        ArrayList<String> result = new ArrayList<>();
-        when(statisticksMock.usersNames()).thenReturn(result);
 
-        ArrayList<String> result100Users = generatorUsersNames(100);
-        when(statisticksMock.usersNames()).thenReturn(result100Users);
+        when(statisticksMock.usersNames()).thenReturn(new ArrayList<>());
+        assertEquals(0, forumStatistics.getNumberOfUsers());
+
+        when(statisticksMock.usersNames()).thenReturn(generator100UsersNames());
+        assertEquals(100, forumStatistics.getNumberOfUsers());
+
 
         when(statisticksMock.postsCount()).thenReturn(0);
-        when(statisticksMock.commentsCount()).thenReturn(0);
+        assertEquals(0, forumStatistics.getNumberOfPosts());
 
+        when(statisticksMock.commentsCount()).thenReturn(0);
+        assertEquals(0, forumStatistics.getNumberOfComments());
 
         when(statisticksMock.postsCount()).thenReturn(1000);
-        when(statisticksMock.commentsCount()).thenReturn(56);
-
+        when(statisticksMock.commentsCount()).thenReturn(12);
+        assertEquals(1000, forumStatistics.getNumberOfPosts());
+        assertEquals(89, forumStatistics.getNumberOfComments());
 
         when(statisticksMock.postsCount()).thenReturn(56);
         when(statisticksMock.commentsCount()).thenReturn(89);
-
-
-        //When
-        forumStatistics.calculateAdvStatistics(statisticksMock);
-        //Then
-        Assert.assertEquals(56, forumStatistics.getNumberOfPosts(), 0.1);
+        assertEquals(56, forumStatistics.getNumberOfPosts());
+        assertEquals(89, forumStatistics.getNumberOfComments());
     }
 
-    private ArrayList<String> generatorUsersNames(int usersQuantity) {
-        ArrayList<String> resultUsersNames = new ArrayList<>();
+    private ArrayList<String> generator100UsersNames() {
+        ArrayList<String> result100UsersNames = new ArrayList<>();
 
-        for (int i = 1; i < usersQuantity; i++) {
+        for (int i = 1; i <= 100; i++) {
             String userName = "name" + (i);
-            resultUsersNames.add(userName);
+            result100UsersNames.add(userName);
         }
-        return resultUsersNames;
+        return result100UsersNames;
     }
-
 }
 
 
