@@ -12,6 +12,7 @@ public class ForumStatistics {
     double averageNumberOfCommentsPerUser;
     double averageNumberOfCommentsPerPost;
 
+
     public int getNumberOfUsers() {
         return numberOfUsers;
     }

@@ -18,34 +18,43 @@ public class ForumStatisticsTestSuite {
     public void testCalculateAdvStatistics() {
         //Given
         Statistics statisticksMock = mock(Statistics.class);
+        ForumStatistics forumStatistics = new ForumStatistics();
 
-        ArrayList<String>tmpUsersNames = new ArrayList<>();
+        ArrayList<String> result = new ArrayList<>();
+        when(statisticksMock.usersNames()).thenReturn(result);
 
-        for (int i = 0; i<100; i++) {
-            String userName = "name" + (i);
-            tmpUsersNames.add(userName);
-        }
-        when(statisticksMock.usersNames()).thenReturn(tmpUsersNames);
-
-        when(statisticksMock.usersNames().size()).thenReturn(100);
-        when(statisticksMock.usersNames().size()).thenReturn(0);
+        ArrayList<String> result100Users = generatorUsersNames(100);
+        when(statisticksMock.usersNames()).thenReturn(result100Users);
 
         when(statisticksMock.postsCount()).thenReturn(0);
-        when(statisticksMock.commentsCount()).thenReturn(56);
-        when(statisticksMock.postsCount()).thenReturn(1000);
         when(statisticksMock.commentsCount()).thenReturn(0);
-        when(statisticksMock.commentsCount()).thenReturn(12);
+
+
+        when(statisticksMock.postsCount()).thenReturn(1000);
+        when(statisticksMock.commentsCount()).thenReturn(56);
+
 
         when(statisticksMock.postsCount()).thenReturn(56);
         when(statisticksMock.commentsCount()).thenReturn(89);
 
-        when(statisticksMock.usersNames()).thenReturn(new ArrayList<>());
 
         //When
-
-        ForumStatistics forumStatistics = new ForumStatistics();
         forumStatistics.calculateAdvStatistics(statisticksMock);
-
-        Assert.assertEquals(9, forumStatistics.getNumberOfPosts(), 0.1);
+        //Then
+        Assert.assertEquals(56, forumStatistics.getNumberOfPosts(), 0.1);
     }
+
+    private ArrayList<String> generatorUsersNames(int usersQuantity) {
+        ArrayList<String> resultUsersNames = new ArrayList<>();
+
+        for (int i = 1; i < usersQuantity; i++) {
+            String userName = "name" + (i);
+            resultUsersNames.add(userName);
+        }
+        return resultUsersNames;
+    }
+
 }
+
+
+
