@@ -2,6 +2,7 @@ package com.kodilla.stream;
 
 import com.kodilla.stream.beautifier.DecoratingStyles;
 import com.kodilla.stream.beautifier.PoemBeautifier;
+import com.kodilla.stream.iterate.NumbersGenerator;
 import com.kodilla.stream.lambda.*;
 import com.kodilla.stream.reference.FunctionalCalculator;
 
@@ -29,6 +30,10 @@ public class StreamMain {
         poemBeautifier.beautify(" - are the first 3 letters of alphabet and the last 3 are - ", text -> "ABC"+ text + "XYZ");
         poemBeautifier.beautify("password", DecoratingStyles::hiddenLettersOfText);
         poemBeautifier.beautify("MISSISSIPPI", DecoratingStyles::letterSpacing);
+
+
+        System.out.println("\nUsing Stream to generate even numbers from 1 to 20");
+        NumbersGenerator.generateEven(20);
 
     }
 }
