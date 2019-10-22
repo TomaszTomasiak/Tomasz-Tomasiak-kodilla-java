@@ -16,12 +16,12 @@ public interface ArrayOperations {
 
         List<Integer> theNumbersList = new ArrayList<>();
 
-        for (int i = 0; i < numbers.length; i++) {
-          theNumbersList.add(numbers[i]);
-       }
+       // for (int i = 0; i < numbers.length; i++) {
+       //   theNumbersList.add(numbers[i]);
+      // }
 
-       //IntStream.range(0, numbers.length)
-        //       .map(n->(numbers[n]));
+       IntStream.range(0, numbers.length)
+              .forEach(n->theNumbersList.add(numbers[n]));
 
 
 

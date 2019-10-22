@@ -20,9 +20,7 @@ public class ArrayOperationsTestSuite {
             Random random = new Random();
             int x = random.nextInt();
             getNumbers[i] = x;
-
-            //IntStream.range(0, 20)
-            // .map(n -> getNumbers[i]);
+        }
 
             OptionalDouble tmpAverageExpected;
             tmpAverageExpected = IntStream.range(0, getNumbers.length)
@@ -35,6 +33,6 @@ public class ArrayOperationsTestSuite {
 
             //Then
             Assert.assertEquals(averageExpected, averageCheck, 0.01);
-        }
+
     }
 }
