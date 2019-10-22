@@ -6,10 +6,10 @@ import java.util.*;
 public final class Country {
 
     private final String countryName;
-    private final int numberOfPeople;
+    private final String numberOfPeople;
 
 
-    public Country(String countryName, int numberOfPeople) {
+    public Country(String countryName, String numberOfPeople) {
         this.countryName = countryName;
         this.numberOfPeople = numberOfPeople;
     }
@@ -18,7 +18,7 @@ public final class Country {
         return countryName;
     }
 
-    public int getNumberOfPeople() {
+    public String getNumberOfPeople() {
         return numberOfPeople;
     }
 

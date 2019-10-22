@@ -19,8 +19,7 @@ public final class Continent {
         return continentName;
     }
 
-    public Set<Country> getCountriesSet(Country country) {
-        countrySet.add(country);
+    public Set<Country> getCountriesSet() {
         return countrySet;
     }
 }

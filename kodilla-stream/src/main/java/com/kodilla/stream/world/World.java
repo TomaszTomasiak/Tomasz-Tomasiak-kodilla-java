@@ -11,23 +11,19 @@ public final class World {
         return continentSet;
     }
 
-    public void addContinent(Continent continent){
+    public void addContinent(Continent continent) {
         continentSet.add(continent);
     }
 
-/*
+
     public BigDecimal getPeopleQuantity() {
 
-       return continentSet.stream()
-               .flatMap(continent->continent.getCountriesSet().stream()
-                       .map(Country::getPeopleQuantity)
-                       .reduce(BigDecimal.ZERO, (sum, current)-> sum=sum.add(current)));
+        return continentSet.stream()
+                .flatMap(continent -> continent.getCountriesSet().stream())
+                .map(c -> c.getPeopleQuantity())
+                .reduce(BigDecimal.ZERO, (sum, current) -> sum = sum.add(current));
 
     }
-
- */
-
-
 }
 
 

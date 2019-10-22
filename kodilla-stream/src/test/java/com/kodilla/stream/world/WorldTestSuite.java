@@ -15,32 +15,53 @@ public class WorldTestSuite {
     @Test
     public void testGetPeopleQuantity() {
         //Given
+        Country countryPoland = new Country("Poland", "38000000");
+        Country countryFrance = new Country("France", "68000000");
+        Country countryGermany = new Country("Germany", "73000000");
+        Country countryChina = new Country("China", "723000000");
+        Country countryRusia = new Country("Russia", "234000000");
+        Country countryJapan = new Country("Japan", "56000000");
+        Country countryNewZeland = new Country("New Zeland", "15600000");
+        Country countryAustralia = new Country("Australia", "23000000");
+
+        Continent continentEurope = new Continent("Europe");
+        continentEurope.addCountryToContinent(countryPoland);
+        continentEurope.addCountryToContinent(countryGermany);
+        continentEurope.addCountryToContinent(countryFrance);
+
+        Continent continentAsia = new Continent("Asia");
+        continentAsia.addCountryToContinent(countryChina);
+        continentAsia.addCountryToContinent(countryRusia);
+        continentAsia.addCountryToContinent(countryJapan);
+
+        Continent continentAustralia = new Continent("Australia");
+        continentAustralia.addCountryToContinent(countryAustralia);
+        continentAustralia.addCountryToContinent(countryNewZeland);
+
+        ArrayList<Continent> continentsList = new ArrayList<>();
+        continentsList.add(continentEurope);
+        continentsList.add(continentAsia);
+        continentsList.add(continentAustralia);
+
         ArrayList<Country> countries = new ArrayList<>();
+        countries.add(countryFrance);
+        countries.add(countryAustralia);
+        countries.add(countryChina);
+        countries.add(countryGermany);
+        countries.add(countryJapan);
+        countries.add(countryNewZeland);
+        countries.add(countryPoland);
+        countries.add(countryRusia);
 
-        countries.add(new Country("Poland", 38000000));
-        countries.add(new Country("France", 68000000));
-        countries.add(new Country("Germany", 73000000));
-        countries.add(new Country("China", 723000000));
-        countries.add(new Country("Russia", 234000000));
-        countries.add(new Country("Japan", 56000000));
-        countries.add(new Country("New Zeland", 15600000));
-        countries.add(new Country("Australia", 23000000));
+        BigDecimal expectedNuberOfPeople = new BigDecimal("1230600000");
 
-        ArrayList<Continent> continentsList =new ArrayList<>();
-        continentsList.add(new Continent ("europe"));
-        continentsList.add(new Continent ("Asia"));
-        continentsList.add(new Continent ("Australia"));
+        //When
+        World world = new World();
+        BigDecimal totalPeopleQuantity = world.getPeopleQuantity();
 
-
-
-//When
-        //BigDecimal totalPeopleQuantity = continentsList.stream()
-
-                //.flatMap(continent -> continent.continentsList.stream())
-                //.map(Country::getPeopleQuantity)
-                //.reduce(BigDecimal.ZERO, (sum, current) -> sum = sum.add(current));
         //Then
-        BigDecimal expectedNuberOfPeople = new BigDecimal("7737600000");
-        //Assert.assertEquals(expectedNuberOfPeople, totalPeopleQuantity);
+
+        Assert.assertEquals(expectedNuberOfPeople, totalPeopleQuantity);
+
     }
 }

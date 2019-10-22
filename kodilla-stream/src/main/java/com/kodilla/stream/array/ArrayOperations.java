@@ -1,38 +1,37 @@
 package com.kodilla.stream.array;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.OptionalDouble;
+import java.util.Random;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import static java.util.stream.Collectors.toList;
+
 public interface ArrayOperations {
-    static void getAverage(int[]numbers) {
-        int[] theNumbers = IntStream.range(0, numbers.length)
-                .count()
+
+    static double getAverage(int[] numbers) {
+
+        List<Integer> theNumbersList = new ArrayList<>();
+
+        for (int i = 0; i < numbers.length; i++) {
+          theNumbersList.add(numbers[i]);
+       }
+
+       //IntStream.range(0, numbers.length)
+        //       .map(n->(numbers[n]));
 
 
 
 
+        OptionalDouble tmpAverage = IntStream.range(0, theNumbersList.size())
+                .map(n -> theNumbersList.get(n))
+                .average();
 
-       IntStream.range(0, numbers.length);
+        double average = tmpAverage.getAsDouble();
 
-
-
+        return average;
     }
-    /*
-    double sum = 0;
-
-        Double[] digits = new Double[20];
-
-        for (int i = 0; i < digits.length; i++) {
-                Random random = new Random();
-                double x = random.nextDouble();
-                digits[i] = x;
-
-                System.out.println("Array element digits[" + i + "] = " + digits[i]);
-                sum = sum + digits[i];
-            }
-
-        double average = sum / digits.length;
-     */
 }
