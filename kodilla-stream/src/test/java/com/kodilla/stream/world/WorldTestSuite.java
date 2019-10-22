@@ -38,10 +38,10 @@ public class WorldTestSuite {
         continentAustralia.addCountryToContinent(countryAustralia);
         continentAustralia.addCountryToContinent(countryNewZeland);
 
-        ArrayList<Continent> continentsList = new ArrayList<>();
-        continentsList.add(continentEurope);
-        continentsList.add(continentAsia);
-        continentsList.add(continentAustralia);
+        World world = new World();
+        world.addContinent(continentEurope);
+        world.addContinent(continentAsia);
+        world.addContinent(continentAustralia);
 
         ArrayList<Country> countries = new ArrayList<>();
         countries.add(countryFrance);
@@ -56,7 +56,7 @@ public class WorldTestSuite {
         BigDecimal expectedNuberOfPeople = new BigDecimal("1230600000");
 
         //When
-        World world = new World();
+
         BigDecimal totalPeopleQuantity = world.getPeopleQuantity();
 
         //Then
