@@ -13,6 +13,5 @@ public class FlightFinderRunner {
         } finally {
             System.out.println("Start searching from the beginning");
         }
-
     }
 }

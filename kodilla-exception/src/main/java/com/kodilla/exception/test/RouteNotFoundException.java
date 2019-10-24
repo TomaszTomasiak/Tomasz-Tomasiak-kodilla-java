@@ -1,4 +1,4 @@
 package com.kodilla.exception.test;
 
-public class RouteNotFoundException extends Throwable {
+public class RouteNotFoundException extends Exception {
 }
