@@ -13,21 +13,31 @@ public class GameRPS extends RpsController {
         Scanner input = new Scanner(System.in);
         Random random = new Random();
 
-        HashMap<String, String> theMap = new HashMap<>();
-        theMap.put("1", "paper");
-        theMap.put("2", "scissors");
-        theMap.put("3", "rock");
+        HashMap<String, Move> theMap = new HashMap<>();
+        theMap.put("1", new Paper());
+        theMap.put("2", new Scissors());
+        theMap.put("3", new Rock());
+        theMap.put("4", new Lizard());
+        theMap.put("5", new Spock());
 
-        ArrayList<String> theList = new ArrayList<>();
-        theList.add("paper");
-        theList.add("paper");
-        theList.add("scissors");
-        theList.add("rock");
+        ArrayList<Move> theList = new ArrayList<>();
+        theList.add(new Paper());
+        theList.add(new Paper());
+        theList.add(new Paper());
+        theList.add(new Paper());
+        theList.add(new Scissors());
+        theList.add(new Scissors());
+        theList.add(new Rock());
+        theList.add(new Rock());
+        theList.add(new Lizard());
+        theList.add(new Lizard());
+        theList.add(new Spock());
+        theList.add(new Spock());
 
         boolean end = false;
 
-        System.out.println("Paper, Scissors, Rock - Welcome to the game");
-        rpsController.setPlayersName();
+        System.out.println("Paper, Scissors, Rock, Lizard, Spock - Welcome to the game");
+        rpsController.setPlayerName();
 
         while (!end) {
 
@@ -36,8 +46,9 @@ public class GameRPS extends RpsController {
             System.out.println("We play up to " + rpsController.howManyPlays + " wins");
 
             while (!end) {
-                System.out.println("Select: 1 - paper; 2 - scissors; 3 - stone or X - to close the game; N -to start new game");
+                System.out.println("Select: 1 - paper; 2 - scissors; 3 - stone; 4 - lizard; 5 - spock or X - to close the game; N -to start new game");
                 String playerChoice = input.nextLine().toUpperCase();
+                Move playerMove = theMap.get(playerChoice);
 
                 if (playerChoice.equals("X")) {
                     System.out.println("Do you realy want to exit the game? Press: Y - yes or N - no");
@@ -62,23 +73,20 @@ public class GameRPS extends RpsController {
                         continue;
                     }
 
-                } else if (playerChoice.equals("1") || playerChoice.equals("2") || playerChoice.equals("3")) {
+                } else if (playerChoice.equals("1") || playerChoice.equals("2") || playerChoice.equals("3") || playerChoice.equals("4")|| playerChoice.equals("5")) {
 
-                    System.out.println("Your choice: " + theMap.get(playerChoice));
+                    System.out.println("Your choice: " + playerMove.name());
 
-                    int computerChoice = random.nextInt(3);
-                    System.out.println("Computer choice: " + theList.get(computerChoice));
+                    int computerChoice = random.nextInt(12);
+                    Move computerMove = theList.get(computerChoice);
+                    System.out.println("Computer choice: " + computerMove.name());
 
-                    if (theList.get(computerChoice).equals("paper") && theMap.get(playerChoice).equals("paper")) {
+                    RoundResult roundResult = playerMove.winsWith(computerMove);
+
+                    if (roundResult.isDraw()) {
                         rpsController.draw();
 
-                    } else if (theList.get(computerChoice).equals("scissors") && theMap.get(playerChoice).equals("scissors")) {
-                        rpsController.draw();
-
-                    } else if (theList.get(computerChoice).equals("rock") && theMap.get(playerChoice).equals("rock")) {
-                        rpsController.draw();
-
-                    } else if (theList.get(computerChoice).equals("paper") && theMap.get(playerChoice).equals("scissors")) {
+                    } else if (roundResult.isWin()) {
                         rpsController.playerWin();
                         if (rpsController.computerResult == rpsController.howManyPlays || rpsController.playerResult == rpsController.howManyPlays) {
                             rpsController.gameOver();
@@ -87,43 +95,7 @@ public class GameRPS extends RpsController {
                             continue;
                         }
 
-                    } else if (theList.get(computerChoice).equals("paper") && theMap.get(playerChoice).equals("rock")) {
-                        rpsController.computerWin();
-                        if (rpsController.computerResult == rpsController.howManyPlays || rpsController.playerResult == rpsController.howManyPlays) {
-                            rpsController.gameOver();
-                            end = true;
-                        } else {
-                            continue;
-                        }
-
-                    } else if (theList.get(computerChoice).equals("scissors") && theMap.get(playerChoice).equals("paper")) {
-                        rpsController.computerWin();
-                        if (rpsController.computerResult == rpsController.howManyPlays || rpsController.playerResult == rpsController.howManyPlays) {
-                            rpsController.gameOver();
-                            end = true;
-                        } else {
-                            continue;
-                        }
-
-                    } else if (theList.get(computerChoice).equals("scissors") && theMap.get(playerChoice).equals("rock")) {
-                        rpsController.playerWin();
-                        if (rpsController.computerResult == rpsController.howManyPlays || rpsController.playerResult == rpsController.howManyPlays) {
-                            rpsController.gameOver();
-                            end = true;
-                        } else {
-                            continue;
-                        }
-
-                    } else if (theList.get(computerChoice).equals("rock") && theMap.get(playerChoice).equals("paper")) {
-                        rpsController.playerWin();
-                        if (rpsController.computerResult == rpsController.howManyPlays || rpsController.playerResult == rpsController.howManyPlays) {
-                            rpsController.gameOver();
-                            end = true;
-                        } else {
-                            continue;
-                        }
-
-                    } else if (theList.get(computerChoice).equals("rock") && theMap.get(playerChoice).equals("scissors")) {
+                    } else {
                         rpsController.computerWin();
                         if (rpsController.computerResult == rpsController.howManyPlays || rpsController.playerResult == rpsController.howManyPlays) {
                             rpsController.gameOver();
@@ -137,4 +109,5 @@ public class GameRPS extends RpsController {
         }
     }
 }
+
 

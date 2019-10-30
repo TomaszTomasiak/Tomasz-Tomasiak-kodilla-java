@@ -11,7 +11,7 @@ public class RpsController {
     int computerResult = 0;
     int howManyPlays;
 
-    public void setPlayersName() {
+    public void setPlayerName() {
         System.out.println("What is your name? ");
         playerName = input.nextLine().toUpperCase();
     }
