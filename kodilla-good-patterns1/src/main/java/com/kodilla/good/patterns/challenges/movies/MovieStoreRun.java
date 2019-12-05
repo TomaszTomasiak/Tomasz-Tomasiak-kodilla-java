@@ -1,7 +1,6 @@
-package com.kodilla.good.patterns.challenges;
+package com.kodilla.good.patterns.challenges.movies;
 
-public class MovieSoreRun {
-
+public class MovieStoreRun {
     public static void main(String[] args) {
         MovieStore movieStore = new MovieStore();
 
