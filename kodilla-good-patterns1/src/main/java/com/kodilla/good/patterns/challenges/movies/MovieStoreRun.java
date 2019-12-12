@@ -10,9 +10,6 @@ public class MovieStoreRun {
                 .flatMap(entry -> entry.getValue().stream())
                 .collect(Collectors.joining(" ! "));
 
-
         System.out.println(movies);
-               // .map(e -> e + " ! ")
-               // .forEach(System.out::print);
     }
 }
