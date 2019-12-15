@@ -1,6 +1,10 @@
 package com.kodilla.good.patterns.challenges.orders;
 
-public interface OrderConfirmation {
+public class OrderConfirmation implements Communication {
 
-    public void sendConfirmation(User user);
+
+    @Override
+    public void sendConfirmation(User user) {
+        System.out.println("Confirmation sent");
     }
+}

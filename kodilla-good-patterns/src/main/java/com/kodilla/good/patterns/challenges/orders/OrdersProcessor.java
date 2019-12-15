@@ -1,21 +1,27 @@
 package com.kodilla.good.patterns.challenges.orders;
 
-public class OrdersProcessor implements OrderConfirmation, ProductOrderService, OrderRepository {
+public class OrdersProcessor {
 
 
     private UserOrder userOrder;
+    private OrderConfirmation orderConfirmation;
+    private OrderRepository orderRepository;
+    private ProductOrderService productOrderService;
 
-    public OrdersProcessor(UserOrder userOrder) {
+    public OrdersProcessor(UserOrder userOrder, OrderConfirmation orderConfirmation, OrderRepository orderRepository, ProductOrderService productOrderService) {
         this.userOrder = userOrder;
+        this.orderConfirmation = orderConfirmation;
+        this.orderRepository = orderRepository;
+        this.productOrderService = productOrderService;
     }
 
     public OrderDto process(final OrderRequest orderRequest) {
-        boolean isOrdered = productOrder(orderRequest.getUser(), orderRequest.getProduct(), orderRequest.getOrderedPieces());
+        boolean isOrdered = productOrderService.productOrder(orderRequest.getUser(), orderRequest.getProduct(), orderRequest.getOrderedPieces());
 
         if (isOrdered) {
 
-            sendConfirmation(orderRequest.getUser());
-            createOrder(orderRequest.getUser(), orderRequest.getProduct(), orderRequest.getOrderedPieces());
+            orderConfirmation.sendConfirmation(orderRequest.getUser());
+            orderRepository.createOrder(orderRequest.getUser(), orderRequest.getProduct(), orderRequest.getOrderedPieces());
             userOrder.addProductToOrder(orderRequest.getProduct(), orderRequest.getOrderedPieces());
 
             System.out.println("Product ordered. DTO created");
@@ -25,15 +31,5 @@ public class OrdersProcessor implements OrderConfirmation, ProductOrderService, 
         } else {
             return new OrderDto(orderRequest.getUser(), false);
         }
-    }
-
-    @Override
-    public void sendConfirmation(User user) {
-        System.out.println("Confirmation sent");
-    }
-
-    @Override
-    public void createOrder(User user, Product product, int orderedPieces) {
-        System.out.println("Order created");
     }
 }

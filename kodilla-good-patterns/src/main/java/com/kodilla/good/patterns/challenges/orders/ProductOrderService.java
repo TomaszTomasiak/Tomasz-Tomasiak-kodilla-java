@@ -1,8 +1,10 @@
 package com.kodilla.good.patterns.challenges.orders;
 
-public interface ProductOrderService {
+public class ProductOrderService implements SourceOfProducts {
 
-    public default boolean productOrder(final User user, final Product product, int orderedPieces) {
+
+    @Override
+    public boolean productOrder(User user, Product product, int orderedPieces) {
         return true;
     }
 }
