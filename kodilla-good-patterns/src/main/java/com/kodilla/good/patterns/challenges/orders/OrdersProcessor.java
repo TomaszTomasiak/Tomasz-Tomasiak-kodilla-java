@@ -4,23 +4,23 @@ public class OrdersProcessor {
 
 
     private UserOrder userOrder;
-    private OrderConfirmation orderConfirmation;
+    private Communication communication;
     private OrderRepository orderRepository;
-    private ProductOrderService productOrderService;
+    private SourceOfProducts sourceOfProducts;
 
-    public OrdersProcessor(UserOrder userOrder, OrderConfirmation orderConfirmation, OrderRepository orderRepository, ProductOrderService productOrderService) {
+    public OrdersProcessor(UserOrder userOrder, Communication communication, OrderRepository orderRepository, SourceOfProducts sourceOfProducts) {
         this.userOrder = userOrder;
-        this.orderConfirmation = orderConfirmation;
+        this.communication = communication;
         this.orderRepository = orderRepository;
-        this.productOrderService = productOrderService;
+        this.sourceOfProducts = sourceOfProducts;
     }
 
     public OrderDto process(final OrderRequest orderRequest) {
-        boolean isOrdered = productOrderService.productOrder(orderRequest.getUser(), orderRequest.getProduct(), orderRequest.getOrderedPieces());
+        boolean isOrdered = sourceOfProducts.productOrder(orderRequest.getUser(), orderRequest.getProduct(), orderRequest.getOrderedPieces());
 
         if (isOrdered) {
 
-            orderConfirmation.sendConfirmation(orderRequest.getUser());
+            communication.sendConfirmation(orderRequest.getUser());
             orderRepository.createOrder(orderRequest.getUser(), orderRequest.getProduct(), orderRequest.getOrderedPieces());
             userOrder.addProductToOrder(orderRequest.getProduct(), orderRequest.getOrderedPieces());
 
