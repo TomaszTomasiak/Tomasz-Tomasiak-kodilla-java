@@ -1,8 +1,8 @@
 package com.kodilla.good.patterns.challenges.orders;
 
-public class ProductOrderService {
+public interface ProductOrderService {
 
-    public boolean productOrder(final User user, final Product product, int orderedPieces) {
+    public default boolean productOrder(final User user, final Product product, int orderedPieces) {
         return true;
     }
 }

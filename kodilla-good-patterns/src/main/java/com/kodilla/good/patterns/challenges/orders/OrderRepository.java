@@ -1,7 +1,6 @@
 package com.kodilla.good.patterns.challenges.orders;
 
-public class OrderRepository {
+public interface OrderRepository {
 
-    public void createOrder(User user, Product product, int orderedPieces) {
-    }
+    public void createOrder(User user, Product product, int orderedPieces);
 }

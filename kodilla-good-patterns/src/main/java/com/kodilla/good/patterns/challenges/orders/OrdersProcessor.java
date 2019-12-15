@@ -1,26 +1,21 @@
 package com.kodilla.good.patterns.challenges.orders;
 
-public class OrdersProcessor {
+public class OrdersProcessor implements OrderConfirmation, ProductOrderService, OrderRepository {
 
-    private OrderConfirmation orderConfirmation;
-    private ProductOrderService productOrderService;
-    private OrderRepository orderRepository;
+
     private UserOrder userOrder;
 
-    public OrdersProcessor(OrderConfirmation orderConfirmation, ProductOrderService productOrderService, OrderRepository orderRepository, UserOrder userOrder) {
-        this.orderConfirmation = orderConfirmation;
-        this.productOrderService = productOrderService;
-        this.orderRepository = orderRepository;
+    public OrdersProcessor(UserOrder userOrder) {
         this.userOrder = userOrder;
     }
 
     public OrderDto process(final OrderRequest orderRequest) {
-        boolean isOrdered = productOrderService.productOrder(orderRequest.getUser(), orderRequest.getProduct(), orderRequest.getOrderedPieces());
+        boolean isOrdered = productOrder(orderRequest.getUser(), orderRequest.getProduct(), orderRequest.getOrderedPieces());
 
         if (isOrdered) {
 
-            orderConfirmation.sendConfirmation(orderRequest.getUser());
-            orderRepository.createOrder(orderRequest.getUser(), orderRequest.getProduct(), orderRequest.getOrderedPieces());
+            sendConfirmation(orderRequest.getUser());
+            createOrder(orderRequest.getUser(), orderRequest.getProduct(), orderRequest.getOrderedPieces());
             userOrder.addProductToOrder(orderRequest.getProduct(), orderRequest.getOrderedPieces());
 
             System.out.println("Product ordered. DTO created");
@@ -30,5 +25,15 @@ public class OrdersProcessor {
         } else {
             return new OrderDto(orderRequest.getUser(), false);
         }
+    }
+
+    @Override
+    public void sendConfirmation(User user) {
+        System.out.println("Confirmation sent");
+    }
+
+    @Override
+    public void createOrder(User user, Product product, int orderedPieces) {
+        System.out.println("Order created");
     }
 }

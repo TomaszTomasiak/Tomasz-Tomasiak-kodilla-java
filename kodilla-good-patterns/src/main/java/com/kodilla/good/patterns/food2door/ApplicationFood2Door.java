@@ -12,18 +12,9 @@ public class ApplicationFood2Door {
         List<Product> products = dataGenerator.getProductsList();
         OrderRequest orderRequest = dataGenerator.sampleOrder();
 
-        Supplier supplier = orderRequest.getProduct().getSupplier();
+        SupplierOrderProcessor supplier = orderRequest.getProduct().getSupplier();
         OrderProcessor orderProcessor = new OrderProcessor();
 
         boolean isRealized = orderProcessor.realizeOrder(orderRequest).isRealized();
-
-        if(isRealized) {
-            System.out.println("Drogi kliencie otrzymaliśmy informację od dostawcy o prawidłowej realizacji zamówienia.");
-        } else {
-            System.out.println("Nie udało się zrealizować zamówienia");
-        }
-
       }
-
-
 }

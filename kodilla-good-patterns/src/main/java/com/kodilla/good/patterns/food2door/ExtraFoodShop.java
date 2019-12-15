@@ -8,6 +8,7 @@ public class ExtraFoodShop implements SupplierOrderProcessor {
     Logistics logistics = new Logistics();
     DeliveryService deliveryService = new DeliveryService();
     InformationService informationService = new InformationService();
+    Accounting accounting = new Accounting();
 
     @Override
     public String getSupplierName() {
@@ -25,12 +26,12 @@ public class ExtraFoodShop implements SupplierOrderProcessor {
 
             informationService.orderConfirmation(orderRequest);
             deliveryService.sendProcess();
-            informationService.informProcess();
+            informationService.informProcessPositive(orderRequest.getProduct().getSupplier());
 
             return true;
 
         } else {
-            System.out.println("Zlecenie nie może być zrealizowane. Produkt:  " + orderRequest.getProduct().getProductName() + ": out of stock");
+            informationService.informProcessNegative(orderRequest.getProduct().getSupplier());
 
             return false;
         }

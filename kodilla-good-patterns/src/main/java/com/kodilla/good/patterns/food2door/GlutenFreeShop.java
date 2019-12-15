@@ -25,12 +25,12 @@ public class GlutenFreeShop implements SupplierOrderProcessor {
 
             informationService.orderConfirmation(orderRequest);
             deliveryService.sendProcess();
-            informationService.informProcess();
+            informationService.informProcessPositive(orderRequest.getProduct().getSupplier());
 
             return true;
 
         } else {
-            System.out.println("Zlecenie nie może być zrealizowane. Produkt:  " + orderRequest.getProduct().getProductName() + ": out of stock");
+            informationService.informProcessNegative(orderRequest.getProduct().getSupplier());
 
             return false;
         }

@@ -5,9 +5,9 @@ public class Product {
     private String productName;
     private int productID;
     private double productPrice;
-    private Supplier supplier;
+    private SupplierOrderProcessor supplier;
 
-    public Product(String productName, int productID, double productPrice, Supplier supplier) {
+    public Product(String productName, int productID, double productPrice, SupplierOrderProcessor supplier) {
         this.productName = productName;
         this.productID = productID;
         this.productPrice = productPrice;
@@ -26,7 +26,12 @@ public class Product {
         return productPrice;
    }
 
-    public Supplier getSupplier() {
+    public SupplierOrderProcessor getSupplier() {
         return supplier;
+    }
+
+    @Override
+    public String toString() {
+        return productName;
     }
 }

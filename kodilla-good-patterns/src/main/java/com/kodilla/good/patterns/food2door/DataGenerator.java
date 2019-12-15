@@ -7,29 +7,29 @@ public class DataGenerator {
 
     LocalDate termOfDelivery = LocalDate.of(2019, 12, 31);
     private ArrayList<Product> productsList = new ArrayList<>();
-    private ArrayList<Supplier> suppliersList = new ArrayList<>();
+    private ArrayList<SupplierOrderProcessor> suppliersList = new ArrayList<>();
 
-    ExtraFoodShop extraFoodShop = new ExtraFoodShop();
-    HealthyShop healthyShop = new HealthyShop();
-    GlutenFreeShop glutenFreeShop = new GlutenFreeShop();
+    SupplierOrderProcessor extraFoodShop = new ExtraFoodShop();
+    SupplierOrderProcessor healthyShop = new HealthyShop();
+    SupplierOrderProcessor glutenFreeShop = new GlutenFreeShop();
+    SupplierOrderProcessor newShop = new NewShop("New Shop", 9999);
 
-    Supplier EFS = new Supplier(extraFoodShop.getSupplierName(), extraFoodShop.getSupplierID());
-    Supplier HS = new Supplier(healthyShop.getSupplierName(), healthyShop.getSupplierID());
-    Supplier GFS = new Supplier(glutenFreeShop.getSupplierName(), glutenFreeShop.getSupplierID());
-
-    Product melon = new Product("Melon", 1234, 5.3, EFS);
-    Product pasta = new Product("Gluten Free Pasta", 2222, 6.8, GFS);
-    Product toothPaste = new Product("ToothPaste", 3333, 10.25, HS);
+    Product melon = new Product("Melon", 1234, 5.3, extraFoodShop);
+    Product pasta = new Product("Gluten Free Pasta", 2222, 6.8, glutenFreeShop);
+    Product toothPaste = new Product("ToothPaste", 3333, 10.25, healthyShop);
+    Product toothPaste2 = new Product("ToothPaste", 3333, 10.25, newShop);
 
 
     public void generateData() {
         productsList.add(melon);
         productsList.add(pasta);
         productsList.add(toothPaste);
+        productsList.add(toothPaste2);
 
-        suppliersList.add(EFS);
-        suppliersList.add(HS);
-        suppliersList.add(GFS);
+        suppliersList.add(extraFoodShop);
+        suppliersList.add(healthyShop);
+        suppliersList.add(glutenFreeShop);
+        suppliersList.add(newShop);
     }
 
     public OrderRequest sampleOrder() {
@@ -41,7 +41,7 @@ public class DataGenerator {
         return productsList;
     }
 
-    public ArrayList<Supplier> getSuppliersList() {
+    public ArrayList<SupplierOrderProcessor> getSuppliersList() {
         return suppliersList;
     }
 

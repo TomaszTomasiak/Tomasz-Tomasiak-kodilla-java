@@ -25,4 +25,6 @@ public class RentalRequest {
     public LocalDateTime getTo() {
         return to;
     }
+
+
 }
