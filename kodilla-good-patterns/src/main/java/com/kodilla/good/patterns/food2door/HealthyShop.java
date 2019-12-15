@@ -2,8 +2,13 @@ package com.kodilla.good.patterns.food2door;
 
 public class HealthyShop implements SupplierOrderProcessor {
 
-    private String supplierName = "Healthy Shop";
-    private int supplierID = 2301;
+    private String supplierName;
+    private int supplierID;
+
+    public HealthyShop(String supplierName, int supplierID) {
+        this.supplierName = supplierName;
+        this.supplierID = supplierID;
+    }
 
     Logistics logistics = new Logistics();
     DeliveryService deliveryService = new DeliveryService();
@@ -21,16 +26,15 @@ public class HealthyShop implements SupplierOrderProcessor {
 
     @Override
     public boolean supplierOrderProcess(OrderRequest orderRequest) {
-
+        logistics.checkStock(orderRequest.getProduct(), orderRequest.getQuantity());
         informationService.orderConfirmation(orderRequest);
+
         deliveryService.sendProcess();
         informationService.informProcessPositive(orderRequest.getProduct().getSupplier());
-        accounting.accounting();
+        informationService.deliveryConfirmation(orderRequest);
+        accounting.orderAccounting();
 
         return true;
-
-
     }
-
 }
 

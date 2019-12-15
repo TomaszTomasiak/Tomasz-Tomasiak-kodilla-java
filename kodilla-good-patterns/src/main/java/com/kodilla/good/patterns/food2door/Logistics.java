@@ -11,6 +11,7 @@ public class Logistics {
 
     public void checkUser(User user) {
         System.out.println("Sprawdzam, czy użytkownik: " + user + " jest zarejestrowany w naszej bazie danych");
+
     }
 
 }

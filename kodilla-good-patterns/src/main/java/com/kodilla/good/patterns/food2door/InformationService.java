@@ -1,6 +1,6 @@
 package com.kodilla.good.patterns.food2door;
 
-public class InformationService {
+public class InformationService implements InformationFlow {
 
 
     public void orderConfirmation(OrderRequest orderRequest) {

@@ -2,8 +2,13 @@ package com.kodilla.good.patterns.food2door;
 
 public class ExtraFoodShop implements SupplierOrderProcessor {
 
-    private String supplierName = "Extra Food Shop";
-    private int supplierID = 1234;
+    private String supplierName;
+    private int supplierID;
+
+    public ExtraFoodShop(String supplierName, int supplierID) {
+        this.supplierName = supplierName;
+        this.supplierID = supplierID;
+    }
 
     Logistics logistics = new Logistics();
     DeliveryService deliveryService = new DeliveryService();
@@ -24,9 +29,11 @@ public class ExtraFoodShop implements SupplierOrderProcessor {
 
         if (logistics.checkStock(orderRequest.getProduct(), orderRequest.getQuantity())) {
 
+            logistics.checkUser(orderRequest.getUser());
             informationService.orderConfirmation(orderRequest);
             deliveryService.sendProcess();
             informationService.informProcessPositive(orderRequest.getProduct().getSupplier());
+            accounting.orderAccounting();
 
             return true;
 

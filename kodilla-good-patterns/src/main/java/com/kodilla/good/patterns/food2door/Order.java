@@ -7,7 +7,7 @@ public class Order {
     private int quantity;
     private boolean isRealized;
 
-    public Order( User user, Product product, int amount, boolean isRealized) {
+    public Order(User user, Product product, int amount, boolean isRealized) {
         this.user = user;
         this.product = product;
         this.quantity = quantity;

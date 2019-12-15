@@ -22,9 +22,9 @@ public class Product {
         return productID;
     }
 
-   public double getProductPrice() {
+    public double getProductPrice() {
         return productPrice;
-   }
+    }
 
     public SupplierOrderProcessor getSupplier() {
         return supplier;

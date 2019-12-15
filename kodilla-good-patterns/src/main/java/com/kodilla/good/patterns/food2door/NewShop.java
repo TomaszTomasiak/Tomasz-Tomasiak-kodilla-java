@@ -21,10 +21,10 @@ public class NewShop implements SupplierOrderProcessor {
 
     @Override
     public boolean supplierOrderProcess(OrderRequest orderRequest) {
-
+        logistics.checkUser(orderRequest.getUser());
         informationService.orderConfirmation(orderRequest);
         deliveryService.selfCollection(orderRequest);
-        accounting.accounting();
+        accounting.orderAccounting();
 
         return true;
     }

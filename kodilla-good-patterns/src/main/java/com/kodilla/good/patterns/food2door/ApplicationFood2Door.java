@@ -7,9 +7,6 @@ public class ApplicationFood2Door {
     public static void main(String[] args) {
 
         DataGenerator dataGenerator = new DataGenerator();
-        dataGenerator.generateData();
-
-        List<Product> products = dataGenerator.getProductsList();
         OrderRequest orderRequest = dataGenerator.sampleOrder();
 
         SupplierOrderProcessor supplier = orderRequest.getProduct().getSupplier();
