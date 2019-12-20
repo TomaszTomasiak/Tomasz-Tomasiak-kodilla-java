@@ -61,5 +61,6 @@ public class SpringRunnerTestSuite {
         //Then
         System.out.println("Chosen shape says: " + name);
     }
+
 }
 
