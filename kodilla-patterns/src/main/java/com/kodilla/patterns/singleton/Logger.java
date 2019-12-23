@@ -2,7 +2,7 @@ package com.kodilla.patterns.singleton;
 
 public final class Logger {
     private static Logger logger = null;
-    private String lastLog = "Batman";
+    private String lastLog = "";
 
     private Logger() {
     }
@@ -19,7 +19,7 @@ public final class Logger {
 
     }
 
-    private void log(String log) {
+    void log(String log) {
         lastLog = log;
         System.out.println("Log: [" + log + "]");
     }
