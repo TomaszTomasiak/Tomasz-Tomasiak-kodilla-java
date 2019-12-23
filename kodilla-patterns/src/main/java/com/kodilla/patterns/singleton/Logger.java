@@ -19,7 +19,7 @@ public final class Logger {
 
     }
 
-    void log(String log) {
+    public void log(String log) {
         lastLog = log;
         System.out.println("Log: [" + log + "]");
     }
