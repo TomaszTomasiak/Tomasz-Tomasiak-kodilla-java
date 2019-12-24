@@ -4,6 +4,7 @@ public final class ShoppingTask implements Task {
     final String taskName;
     final String whatToBuy;
     final int quantity;
+    private
 
 
     public ShoppingTask(String taskName, String whatToBuy, int quantity) {
