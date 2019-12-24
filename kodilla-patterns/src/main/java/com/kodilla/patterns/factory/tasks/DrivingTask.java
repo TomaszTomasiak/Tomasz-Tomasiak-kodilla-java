@@ -12,8 +12,9 @@ public class DrivingTask implements Task {
     }
 
     @Override
-    public void executeTask() {
+    public boolean executeTask() {
         System.out.println("Task in progress: " + toString());
+        return false;
     }
 
     @Override
@@ -23,7 +24,11 @@ public class DrivingTask implements Task {
 
     @Override
     public boolean isTaskExecuted() {
-        return false;
+        if (!executeTask()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     @Override

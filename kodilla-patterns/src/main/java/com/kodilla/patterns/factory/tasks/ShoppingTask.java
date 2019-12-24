@@ -13,8 +13,9 @@ public final class ShoppingTask implements Task {
     }
 
     @Override
-    public void executeTask() {
-        System.out.println("The task: [" + taskName + ": to buy - " + quantity + " cans of " + whatToBuy + "] has done");
+    public boolean executeTask() {
+        System.out.println("The task: [" + taskName + "-> to buy: " + quantity + " cans of " + whatToBuy + "] has done");
+        return true;
     }
 
     @Override
@@ -24,7 +25,11 @@ public final class ShoppingTask implements Task {
 
     @Override
     public boolean isTaskExecuted() {
-        return true;
+        if (!executeTask()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public String getWhatToBuy() {
