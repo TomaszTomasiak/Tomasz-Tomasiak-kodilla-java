@@ -4,7 +4,7 @@ public class PaintingTask implements Task {
     final String taskName;
     final String color;
     final String whatToPaint;
-    boolean taskStatus = false;
+    private boolean taskStatus = false;
 
     public PaintingTask(String taskName, String color, String whatToPaint) {
         this.taskName = taskName;
