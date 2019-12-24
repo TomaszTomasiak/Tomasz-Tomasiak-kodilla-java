@@ -19,8 +19,7 @@ public class BigmacTestSuite {
                 .ingredient("cheese")
                 .build();
 
-        System.out.println(bigmac);
-        //When,
+        //When
         int howManyIngredients = bigmac.getIngredients().size();
         //Then
         Assert.assertEquals(5, howManyIngredients);
