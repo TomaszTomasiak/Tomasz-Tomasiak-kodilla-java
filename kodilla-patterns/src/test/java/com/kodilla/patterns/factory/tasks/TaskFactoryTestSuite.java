@@ -11,10 +11,13 @@ public class TaskFactoryTestSuite {
         TaskFactory factory = new TaskFactory();
         //When
         Task shopping = factory.makeTask(TaskFactory.SHOPPINGTASK);
-        boolean isTaskExecutedResult = shopping.isTaskExecuted();
+        boolean isTaskExecutedResultBeforeExecuteTask = shopping.isTaskExecuted();
+        shopping.executeTask();
+        boolean isTaskExecutedResultAfterExecuteTask = shopping.isTaskExecuted();
         //Then
         Assert.assertEquals("Shopping", shopping.getTaskName());
-        Assert.assertEquals(true, isTaskExecutedResult);
+        Assert.assertFalse(isTaskExecutedResultBeforeExecuteTask);
+        Assert.assertTrue(isTaskExecutedResultAfterExecuteTask);
     }
 
     @Test
@@ -23,10 +26,14 @@ public class TaskFactoryTestSuite {
         TaskFactory factory = new TaskFactory();
         //When
         Task painting = factory.makeTask(TaskFactory.PAINTINGTASK);
-        boolean isTaskExecutedResult = painting.isTaskExecuted();
+        boolean isTaskExecutedResultBeforeExecuteTask = painting.isTaskExecuted();
+        painting.executeTask();
+        boolean isTaskExecutedResultAfterExecuteTask = painting.isTaskExecuted();
+
         //Then
         Assert.assertEquals("Painting", painting.getTaskName());
-        Assert.assertEquals(false, isTaskExecutedResult);
+        Assert.assertFalse(isTaskExecutedResultBeforeExecuteTask);
+        Assert.assertTrue(isTaskExecutedResultAfterExecuteTask);
     }
 
     @Test
@@ -35,9 +42,22 @@ public class TaskFactoryTestSuite {
         TaskFactory factory = new TaskFactory();
         //When
         Task driving = factory.makeTask(TaskFactory.DRIVINGTASK);
-        boolean isTaskExecutedResult = driving.isTaskExecuted();
+        boolean isTaskExecutedResultBeforeExecuteTask = driving.isTaskExecuted();
+        driving.executeTask();
+        boolean isTaskExecutedResultAfterExecuteTask = driving.isTaskExecuted();
         //Then
         Assert.assertEquals("Driving", driving.getTaskName());
-        Assert.assertEquals(false, isTaskExecutedResult);
+        Assert.assertFalse(isTaskExecutedResultBeforeExecuteTask);
+        Assert.assertTrue(isTaskExecutedResultAfterExecuteTask);
+    }
+
+    @Test
+    public void testFactoryNullTask() {
+        //Given
+        TaskFactory factory = new TaskFactory();
+        //When
+        Task doNothing = factory.makeTask("null");
+        //Then
+        Assert.assertNull(doNothing);
     }
 }
