@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -44,15 +45,14 @@ public class InvoiceDaoTestSuite {
         invoice2.getItems().add(item3);
 
         //When
-        invoiceDao.save(invoice1);
+        invoiceDao.saveAll(Arrays.asList(invoice1,invoice2));
+        //invoiceDao.save(invoice1);
         int invoice1Id = invoice1.getId();
-        invoiceDao.save(invoice2);
+        //invoiceDao.save(invoice2);
         int invoice2Id = invoice2.getId();
 
+
         //Then
-        Assert.assertEquals(2, invoiceDao.count());
-        Assert.assertEquals(3, itemDao.count());
-        Assert.assertEquals(3, productDao.count());
         Assert.assertNotEquals(0, invoice1Id);
         Assert.assertNotEquals(0, invoice2Id);
 

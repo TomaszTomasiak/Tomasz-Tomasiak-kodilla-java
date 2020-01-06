@@ -29,7 +29,7 @@ public class TaskListDaoTestSuite {
         //Given
         TaskList taskList = new TaskList(LISTNAME, "This is list of projects which are in progress");
         taskListDao.save(taskList);
-        int id = taskList.getId();
+
 
         //When
         List<TaskList> readTaskList = taskListDao.findByListName(LISTNAME);
@@ -38,7 +38,7 @@ public class TaskListDaoTestSuite {
         Assert.assertEquals(1, readTaskList.size());
 
         //Cleanup
-        //int id = readTaskList.get(0).getId();
+        int id = readTaskList.get(0).getId();
         taskListDao.deleteById(id);
     }
 
