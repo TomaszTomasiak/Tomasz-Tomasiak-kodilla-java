@@ -29,18 +29,18 @@ public final class Task {
     @Id
     @GeneratedValue
     @NotNull
-    @Column (name = "ID", unique = true)
+    @Column(name = "ID", unique = true)
     public int getId() {
         return id;
     }
 
-    @Column (name = "DESCRIPTION")
+    @Column(name = "DESCRIPTION")
     public String getDescription() {
         return description;
     }
 
     @NotNull
-    @Column (name = "CREATED")
+    @Column(name = "CREATED")
     public Date getCreated() {
         return created;
     }

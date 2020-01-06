@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "EMPLOYEES")
-public class Employee<inverseJoinColumns> {
+public class Employee {
     private int id;
     private String firstName;
     private String lastName;
@@ -55,7 +55,7 @@ public class Employee<inverseJoinColumns> {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "JOIN_COMPANY_EMPLOYEE",
-            joinColumns  = {@JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "EMPLOYEE_ID")},
+            joinColumns = {@JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "EMPLOYEE_ID")},
             inverseJoinColumns = {@JoinColumn(name = "COMPANY_ID", referencedColumnName = "COMPANY_ID")}
     )
     public List<Company> getCompanies() {
