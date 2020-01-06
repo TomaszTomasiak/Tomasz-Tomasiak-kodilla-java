@@ -9,12 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CompanyDaoTestSuite {
    @Autowired
     CompanyDao companyDao;
+
+   @Autowired
+   EmployeeDao employeeDao;
 
     @Test
     public void testSaveManyToMany(){
@@ -53,6 +58,7 @@ public class CompanyDaoTestSuite {
         Assert.assertNotEquals(0, greyMatterId);
 
         //CleanUp
+
         try {
             companyDao.deleteById(softwareMachineId);
             companyDao.deleteById(dataMaestersId);
@@ -61,4 +67,50 @@ public class CompanyDaoTestSuite {
             //do nothing
         }
     }
+    @Test
+    public void testEmployeeNamedQueryRetriveLastNameEquals() {
+        //Given
+        Employee johnSmith = new Employee("John", "Smith");
+        Employee stephanieClarckson = new Employee("Stephanie", "Clarckson");
+        Employee lindaKovalsky = new Employee("Linda", "Kovalsky");
+
+        //When
+        employeeDao.save(johnSmith);
+        employeeDao.save(stephanieClarckson);
+        employeeDao.save(lindaKovalsky);
+        List<Employee> lastNameEquals = employeeDao.retrieveEmployeesWithLastNameEquals("Smith");
+
+        //Then
+        try {
+            Assert.assertEquals(1, lastNameEquals.size());
+        } finally {
+            //CleanUp
+            employeeDao.deleteAll();
+        }
+    }
+
+    @Test
+    public void testCompanyNamedNativeQueryRetrieveCompaniesWithFirstFreeLettersAre(){
+        //Given
+        Company softwareMachine = new Company("Software Machine");
+        Company dataMaesters = new Company("Data Maesters");
+        Company greyMatter = new Company("Grey Matter");
+        Company dataMatter = new Company("Data Matter");
+
+        //When
+        companyDao.save(softwareMachine);
+        companyDao.save(dataMaesters);
+        companyDao.save(greyMatter);
+        companyDao.save(dataMatter);
+        List<Company> withTreeFirstLetters = companyDao.retrieveCompaniesWithFirstFreeLettersAre("dat");
+
+        //Then
+        try {
+            Assert.assertEquals(2, withTreeFirstLetters.size());
+        } finally {
+            //CleanUp
+            companyDao.deleteAll();
+        }
+    }
+
 }
