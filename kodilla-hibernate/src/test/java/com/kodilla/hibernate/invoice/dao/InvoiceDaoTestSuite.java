@@ -16,6 +16,7 @@ import java.util.Arrays;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 public class InvoiceDaoTestSuite {
 
     @Autowired
@@ -50,7 +51,6 @@ public class InvoiceDaoTestSuite {
         int invoice1Id = invoice1.getId();
         //invoiceDao.save(invoice2);
         int invoice2Id = invoice2.getId();
-
 
         //Then
         Assert.assertNotEquals(0, invoice1Id);
