@@ -26,6 +26,7 @@ public class TaskListDaoTestSuite {
     private TaskListDao taskListDao;
     private static String LISTNAME = "Projects in progress";
 
+    /*
     @Test
     public void testFindByListName() {
         //Given
@@ -43,6 +44,8 @@ public class TaskListDaoTestSuite {
         int id = readTaskList.get(0).getId();
         taskListDao.deleteAll();
     }
+
+     */
 
     @Test
     public void testTaskListDaoSaveWithTasks() {
