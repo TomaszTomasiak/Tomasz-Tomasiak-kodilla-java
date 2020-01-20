@@ -1,6 +1,8 @@
 package com.kodilla.sudoku;
 
 public class SudokuGame {
+
+
     public static void main(String[] args) {
 
         boolean gameFinished = false;
@@ -10,6 +12,5 @@ public class SudokuGame {
             gameFinished = theGame.resolveSudoku();
 
         }
-
     }
 }

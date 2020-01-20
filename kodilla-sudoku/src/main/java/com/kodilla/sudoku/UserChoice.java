@@ -34,4 +34,13 @@ public class UserChoice {
     public int getValue() {
         return value;
     }
+
+    @Override
+    public String toString() {
+        return "UserChoice{" +
+                "row=" + row +
+                ", column=" + column +
+                ", value=" + value +
+                '}';
+    }
 }

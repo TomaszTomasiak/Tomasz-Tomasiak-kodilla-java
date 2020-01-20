@@ -6,11 +6,19 @@ import java.util.Scanner;
 public class SudokuController {
     private static Scanner sc = new Scanner(System.in);
     private static SudokuBoard board;
-    private static SudokuElement[][] sudokuGame;
+    private static SudokuElement[][] sudokuGame = new SudokuElement[9][9];
     private static UserChoice userChoice;
 
     public static SudokuElement[][] getSudokuGame() {
         return sudokuGame;
+    }
+
+    private static void valueOfSudokuElementInitializer() {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                sudokuGame[i][j].setValue(SudokuElement.EMPTY);
+            }
+        }
     }
 
     public void solveSudoku() {
@@ -173,6 +181,7 @@ public class SudokuController {
 
         boolean finishGame = false;
         board = new SudokuBoard();
+        valueOfSudokuElementInitializer();
         show(board.toString());
         while (!finishGame) {
             UserChoice choice = getUserChoice();
