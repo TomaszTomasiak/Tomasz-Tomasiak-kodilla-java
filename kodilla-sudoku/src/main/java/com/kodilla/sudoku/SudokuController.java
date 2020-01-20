@@ -202,7 +202,7 @@ public class SudokuController {
     private void setValue(UserChoice choice) {
         try {
             sudokuGame[choice.getColumn() - 1][choice.getRow() - 1].setValue(choice.getValue());
-            //board.setValueToCell(choice.getColumn() - 1, choice.getRow() - 1, choice.getValue());
+
         } catch (Exception e) {
             SudokuController.printIncorrectValueToSet(choice);
         }

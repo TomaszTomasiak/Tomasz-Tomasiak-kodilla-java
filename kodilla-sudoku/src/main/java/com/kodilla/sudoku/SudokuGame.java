@@ -11,19 +11,5 @@ public class SudokuGame {
 
         }
 
-/*
-        SudokuBoard sudokuBoard = new SudokuBoard();
-
-        System.out.println(sudokuBoard);
-        System.out.println(SudokuController.menu());
-
-        //testy
-
-        System.out.println(sudokuBoard);
-        SudokuController sudokuController = new SudokuController();
-        System.out.println(sudokuController.menu());
-
- */
-
     }
 }
