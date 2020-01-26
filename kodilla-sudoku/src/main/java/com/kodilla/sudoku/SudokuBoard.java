@@ -5,17 +5,20 @@ import java.util.List;
 
 public class SudokuBoard {
 
-    SudokuController sudokuController = new SudokuController();
+    SudokuElement[][] boardOfElements = new SudokuElement[9][9];
 
-    public SudokuRow[] boardRows = new SudokuRow[9];
+   // public SudokuRow[] boardRows = new SudokuRow[9];
 
     public SudokuBoard() {
         for (int i = 0; i < 9; i++) {
-            boardRows[i] = new SudokuRow();
+           // boardRows[i] = new SudokuRow();
+            for (int n =0; n < 9; n++) {
+                boardOfElements[i][n] = new SudokuElement(SudokuElement.EMPTY);
+
+            }
 
         }
     }
-
 
     @Override
     public String toString() {
@@ -24,11 +27,11 @@ public class SudokuBoard {
         for (int i = 0; i < 9; i++) {
             printBoard.append(1 + i).append(" |");
             for (int n = 0; n < 9; n++) {
-                if (boardRows[i].rowSudokuElements.get(n).getValue() == SudokuElement.EMPTY) {
+                if (boardOfElements[i][n].getValue() == SudokuElement.EMPTY) {
                     printBoard.append("   ");
                 } else {
                     printBoard.append(" ");
-                    printBoard.append(boardRows[i].rowSudokuElements.get(n).getValue());
+                    printBoard.append(boardOfElements[i][n].getValue());
                     printBoard.append(" ");
                 }
                 printBoard.append("|");

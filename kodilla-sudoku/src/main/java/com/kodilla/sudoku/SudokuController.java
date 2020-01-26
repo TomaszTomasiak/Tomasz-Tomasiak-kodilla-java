@@ -1,66 +1,49 @@
 package com.kodilla.sudoku;
 
-import java.util.Random;
 import java.util.Scanner;
 
 public class SudokuController {
     private static Scanner sc = new Scanner(System.in);
-    private static SudokuBoard board;
-    private static SudokuElement[][] sudokuGame = new SudokuElement[9][9];
-    private static UserChoice userChoice;
+    private SudokuBoard board;
 
-    public static SudokuElement[][] getSudokuGame() {
-        return sudokuGame;
-    }
-
-    private static void valueOfSudokuElementInitializer() {
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                sudokuGame[i][j].setValue(SudokuElement.EMPTY);
-            }
-        }
-    }
-
-    public void solveSudoku() {
+    public void solveSudoku() { // back to this ????
 
         if (!backtrackSolve()) {
-            System.out.println("This sudoku can't be solved. Insert additional value into the board");
-        }
+            System.out.println("This sudoku can't be solved"); // to develop
 
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                sudokuGame[i][j].setValue(sudokuGame[i][j].getValue()); // -----????????
-            }
+            //startNewGame();
+
         }
     }
 
-    public boolean isPossibleToPutHere(int r, int c, int value) {
+    public boolean isPossibleToPutHere(int r, int c, Integer value) {
 
-        // row check
+
+        // row check - searching element with value from iteration in line 86
         for (int j = 0; j < 9; j++) {
-            if (sudokuGame[r][j].getValue() == value) {
-                sudokuGame[r][j].possibleValues.remove(value);
+            if (board.boardOfElements[r][j].getValue() == value) {
+                board.boardOfElements[r][c].possibleValues.remove(value);
                 return false;
             }
         }
 
-        // column check
+        // column check - searching element with value from iteration in line 86
         for (int i = 0; i < 9; i++) {
-            if (sudokuGame[i][c].getValue() == value) {
-                sudokuGame[i][c].possibleValues.remove(value);
+            if (board.boardOfElements[i][c].getValue() == value) {
+                board.boardOfElements[r][c].possibleValues.remove(value);
                 return false;
             }
         }
 
-        // box check
+        // box check - searching element with value from iteration in line 86
         int boxRow = r - r % 3;
         int boxColumn = c - c % 3;
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
 
-                if (sudokuGame[boxRow + i][boxColumn + j].getValue() == value) {
-                    sudokuGame[boxRow + i][boxColumn + j].possibleValues.remove(value);
+                if (board.boardOfElements[boxRow + i][boxColumn + j].getValue() == value) {
+                    board.boardOfElements[r][c].possibleValues.remove(value);
                     return false;
                 }
             }
@@ -69,35 +52,46 @@ public class SudokuController {
     }
 
     public boolean backtrackSolve() {
-        int rowIndex = 0, columnIndex = 0;
-        boolean isEmpty = false;
+        int columnIndex = 0;
+        int rowIndex = 0;
+        boolean isEmptyField = false;
 
-        for (int i = 0; i < 9 && !isEmpty; i++) {
-            for (int j = 0; j < 9 && !isEmpty; j++) {
-                if (sudokuGame[i][j].getValue() == SudokuElement.EMPTY) {
-                    isEmpty = true;
+        for (int i = 0; i < 9 && !isEmptyField; i++) {
+
+            for (int j = 0; j < 9 && !isEmptyField; j++) {
+
+                if (board.boardOfElements[i][j].getValue() == SudokuElement.EMPTY) {
+
                     rowIndex = i;
                     columnIndex = j;
+                    isEmptyField = true;
                 }
             }
         }
 
-        if (!isEmpty) {
+        if (!isEmptyField) {
             return true;
         }
 
-        for (int v = 0; v < sudokuGame[rowIndex][columnIndex].possibleValues.size(); v++) {
-            if (isPossibleToPutHere(rowIndex, columnIndex, v)) {
 
-                sudokuGame[rowIndex][columnIndex].setValue(sudokuGame[rowIndex][columnIndex].possibleValues.get(v));
+        int sizeOfPossibleValuesList = board.boardOfElements[rowIndex][columnIndex].possibleValues.size();
+
+        for (int index = 0; index < sizeOfPossibleValuesList; index++) {
+
+            Integer possibleValue = board.boardOfElements[rowIndex][columnIndex].possibleValues.get(index);
+
+            if (isPossibleToPutHere(rowIndex, columnIndex, possibleValue)) {
+
+                board.boardOfElements[rowIndex][columnIndex].setValue(possibleValue);
 
                 if (backtrackSolve()) {
                     return true;
                 }
 
-                sudokuGame[rowIndex][columnIndex].setValue(SudokuElement.EMPTY);  // We've failed.
+                board.boardOfElements[rowIndex][columnIndex].setValue(SudokuElement.EMPTY);
             }
         }
+
 
         return false; // Backtracking
     }
@@ -125,16 +119,21 @@ public class SudokuController {
             case "sudoku":
                 return new UserChoice(UserChoiceType.RESOLVE);
             case "n":
-                return startNewGame();
+                return startNewGame(); // back to this
             case "x":
                 return exitGame();
             default:
                 if (isDigits && digitsCorrectLength) {
-                    char[] inputTab = input.toCharArray();
-                    int column = Character.getNumericValue(inputTab[0]);
-                    int row = Character.getNumericValue(inputTab[1]);
-                    int value = Character.getNumericValue(inputTab[2]);
+
+                    char setColumn = input.charAt(1);
+                    char setRow = input.charAt(0);
+                    char setValue = input.charAt(2);
+                    int column = setColumn - 48;
+                    int row = setRow - 48;
+                    int value = setValue - 48;
+
                     return new UserChoice(column, row, value);
+
                 } else {
                     return new UserChoice(UserChoiceType.NONE);
                 }
@@ -144,14 +143,14 @@ public class SudokuController {
     public UserChoice startNewGame() {
         boolean isCorrect = false;
         while (!isCorrect) {
-            System.out.println("Do you want to start a new game? Y/N");
-            String input = sc.nextLine().toUpperCase();
+            System.out.println("Do you want to start a new game? y/n");
+            String input = sc.nextLine();
             sc.nextLine();
-            if (input.equals("Y")) {
+            if (input.equals("y")) {
                 isCorrect = true;
                 return new UserChoice(UserChoiceType.NEW_GAME);
             }
-            if (input.equals("N")) {
+            if (input.equals("n")) {
                 isCorrect = true;
                 return new UserChoice(UserChoiceType.NONE);
             }
@@ -162,14 +161,13 @@ public class SudokuController {
     private static UserChoice exitGame() {
         boolean isCorrect = false;
         while (!isCorrect) {
-            System.out.println("Do you want exit? Y/N");
+            System.out.println("Do you want exit? Y/N"); // why print double?
             String input = sc.nextLine().toUpperCase();
             sc.nextLine();
             if (input.equals("Y")) {
                 isCorrect = true;
                 return new UserChoice(UserChoiceType.EXIT);
-            }
-            if (input.equals("N")) {
+            } else if (input.equals("N")) {
                 isCorrect = true;
                 return new UserChoice(UserChoiceType.NONE);
             }
@@ -181,7 +179,6 @@ public class SudokuController {
 
         boolean finishGame = false;
         board = new SudokuBoard();
-        valueOfSudokuElementInitializer();
         show(board.toString());
         while (!finishGame) {
             UserChoice choice = getUserChoice();
@@ -208,9 +205,20 @@ public class SudokuController {
         return true;
     }
 
+    public void setValueToSudokuElement(int column, int row, int value) {
+        if (!canSetValue(column, row, value)) {
+            System.out.println("Incorrect value " + value + " in row " + row + " column " + column);
+        }
+        board.boardOfElements[column][row].setValue(value);
+    }
+
     private void setValue(UserChoice choice) {
+        int column = choice.getColumn() - 1;
+        int row = choice.getRow() - 1;
+        int value = choice.getValue();
+
         try {
-            sudokuGame[choice.getColumn() - 1][choice.getRow() - 1].setValue(choice.getValue());
+            setValueToSudokuElement(column, row, value);
 
         } catch (Exception e) {
             SudokuController.printIncorrectValueToSet(choice);
@@ -223,6 +231,17 @@ public class SudokuController {
 
     public static void show(String text) {
         System.out.println(text);
+    }
+
+    private boolean canSetValue(int column, int row, int value) {
+        boolean correctValue = value >= 1 && value <= 9;
+        return correctValue && correctColumnAndRow(column, row);
+    }
+
+    private boolean correctColumnAndRow(int column, int row) {
+        boolean correctColumn = column >= 1 && column <= 9;
+        boolean correctRow = row >= 1 && row <= 9;
+        return correctColumn && correctRow;
     }
 
 }

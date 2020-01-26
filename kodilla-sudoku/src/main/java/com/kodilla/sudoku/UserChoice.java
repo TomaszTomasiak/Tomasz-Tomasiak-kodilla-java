@@ -2,7 +2,7 @@ package com.kodilla.sudoku;
 
 public class UserChoice {
 
-    public static UserChoiceType choiceType;
+    private static UserChoiceType choiceType;
 
     private int row;
     private int column;
@@ -35,11 +35,13 @@ public class UserChoice {
         return value;
     }
 
+
+
     @Override
     public String toString() {
-        return "UserChoice{" +
-                "row=" + row +
-                ", column=" + column +
+        return "UserChoice {" +
+                "column=" + column +
+                ", row=" + row +
                 ", value=" + value +
                 '}';
     }
