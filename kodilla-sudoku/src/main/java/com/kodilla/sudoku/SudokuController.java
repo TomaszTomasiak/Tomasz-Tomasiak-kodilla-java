@@ -12,8 +12,8 @@ public class SudokuController {
             System.out.println("This sudoku can't be solved"); // to develop
 
             //startNewGame();
-
         }
+
     }
 
     public boolean isPossibleToPutHere(int r, int c, Integer value) {
@@ -73,12 +73,9 @@ public class SudokuController {
             return true;
         }
 
+        for (int possibleValue = 1; possibleValue <= 9 ; possibleValue++) {
 
-        int sizeOfPossibleValuesList = board.boardOfElements[rowIndex][columnIndex].possibleValues.size();
-
-        for (int index = 0; index < sizeOfPossibleValuesList; index++) {
-
-            Integer possibleValue = board.boardOfElements[rowIndex][columnIndex].possibleValues.get(index);
+            //Integer possibleValue = board.boardOfElements[rowIndex][columnIndex].possibleValues.get(index);
 
             if (isPossibleToPutHere(rowIndex, columnIndex, possibleValue)) {
 
@@ -91,7 +88,6 @@ public class SudokuController {
                 board.boardOfElements[rowIndex][columnIndex].setValue(SudokuElement.EMPTY);
             }
         }
-
 
         return false; // Backtracking
     }
