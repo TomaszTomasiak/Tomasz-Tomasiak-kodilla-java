@@ -3,39 +3,35 @@ package com.kodilla.sudoku;
 import java.util.Scanner;
 
 public class SudokuController {
-    private static Scanner sc = new Scanner(System.in);
-    private SudokuBoard board;
+    Scanner sc = new Scanner(System.in);
+    SudokuBoard board;
 
-    public void solveSudoku() { // back to this ????
+    public void solveSudoku() {
 
         if (!backtrackSolve()) {
-            System.out.println("This sudoku can't be solved"); // to develop
-
-            //startNewGame();
+            System.out.println("This sudoku can't be solved");
+            startNewGame();
         }
 
     }
 
     public boolean isPossibleToPutHere(int r, int c, Integer value) {
 
-
-        // row check - searching element with value from iteration in line 86
+        // row check
         for (int j = 0; j < 9; j++) {
             if (board.boardOfElements[r][j].getValue() == value) {
-                board.boardOfElements[r][c].possibleValues.remove(value);
                 return false;
             }
         }
 
-        // column check - searching element with value from iteration in line 86
+        // column check
         for (int i = 0; i < 9; i++) {
             if (board.boardOfElements[i][c].getValue() == value) {
-                board.boardOfElements[r][c].possibleValues.remove(value);
                 return false;
             }
         }
 
-        // box check - searching element with value from iteration in line 86
+        // box check
         int boxRow = r - r % 3;
         int boxColumn = c - c % 3;
 
@@ -43,7 +39,6 @@ public class SudokuController {
             for (int j = 0; j < 3; j++) {
 
                 if (board.boardOfElements[boxRow + i][boxColumn + j].getValue() == value) {
-                    board.boardOfElements[r][c].possibleValues.remove(value);
                     return false;
                 }
             }
@@ -73,9 +68,7 @@ public class SudokuController {
             return true;
         }
 
-        for (int possibleValue = 1; possibleValue <= 9 ; possibleValue++) {
-
-            //Integer possibleValue = board.boardOfElements[rowIndex][columnIndex].possibleValues.get(index);
+        for (int possibleValue = 1; possibleValue <= 9; possibleValue++) {
 
             if (isPossibleToPutHere(rowIndex, columnIndex, possibleValue)) {
 
@@ -89,13 +82,13 @@ public class SudokuController {
             }
         }
 
-        return false; // Backtracking
+        return false;
     }
 
-    public static String menu() {
+    public String menu() {
         return "SUDOKU\n" +
                 "To insert digit into Sudoku board \n" +
-                "type 3 digits (example: 123, where: 1 is row index, 2 is column index, 3 is value) \n" +
+                "type 3 digits (example: 123, where: 1 is row index, 2 is column index, 3 is number) \n" +
                 "Other options:\n" +
                 "sudoku - to solve Sudoku\n" +
                 "n - to start a new game\n" +
@@ -103,10 +96,8 @@ public class SudokuController {
     }
 
     public UserChoice getUserChoice() {
-        System.out.println(menu());
-        System.out.println();
 
-        String input = sc.next();
+        String input = sc.nextLine();
 
         boolean isDigits = input.chars().allMatch(Character::isDigit);
         boolean digitsCorrectLength = input.length() == 3;
@@ -115,9 +106,10 @@ public class SudokuController {
             case "sudoku":
                 return new UserChoice(UserChoiceType.RESOLVE);
             case "n":
-                return startNewGame(); // back to this
+                return new UserChoice(UserChoiceType.NEW_GAME);
             case "x":
-                return exitGame();
+                return new UserChoice(UserChoiceType.EXIT);
+
             default:
                 if (isDigits && digitsCorrectLength) {
 
@@ -128,9 +120,16 @@ public class SudokuController {
                     int row = setRow - 48;
                     int value = setValue - 48;
 
-                    return new UserChoice(column, row, value);
+                    if (isPossibleToPutHere(row, column, value)) {
+                        return new UserChoice(column, row, value);
+
+                    } else {
+                        System.out.println("You can not put the number: " + value + " here! Try a different number");
+                        return new UserChoice(UserChoiceType.NONE);
+                    }
 
                 } else {
+
                     return new UserChoice(UserChoiceType.NONE);
                 }
         }
@@ -139,36 +138,43 @@ public class SudokuController {
     public UserChoice startNewGame() {
         boolean isCorrect = false;
         while (!isCorrect) {
-            System.out.println("Do you want to start a new game? y/n");
-            String input = sc.nextLine();
-            sc.nextLine();
-            if (input.equals("y")) {
+            System.out.println("Do you want to start a new game? Y/N");
+            String input = sc.nextLine().toUpperCase();
+
+            if (input.equals("Y")) {
+                for (int i = 0; i < 9; i++) {
+                    for (int j = 0; j < 9; j++) {
+                        board.boardOfElements[i][j].setValue(SudokuElement.EMPTY);
+                    }
+                }
+                board = new SudokuBoard();
+                resolveSudoku();
                 isCorrect = true;
                 return new UserChoice(UserChoiceType.NEW_GAME);
             }
-            if (input.equals("n")) {
+            if (input.equals("N")) {
                 isCorrect = true;
-                return new UserChoice(UserChoiceType.NONE);
+                return new UserChoice(UserChoiceType.EXIT);
             }
         }
         return new UserChoice(UserChoiceType.NONE);
     }
 
-    private static UserChoice exitGame() {
+    public void exitGame() {
         boolean isCorrect = false;
         while (!isCorrect) {
-            System.out.println("Do you want exit? Y/N"); // why print double?
+            System.out.println("Do you want exit? Y/N");
             String input = sc.nextLine().toUpperCase();
-            sc.nextLine();
+
             if (input.equals("Y")) {
+                sc.close();
+
                 isCorrect = true;
-                return new UserChoice(UserChoiceType.EXIT);
+
             } else if (input.equals("N")) {
                 isCorrect = true;
-                return new UserChoice(UserChoiceType.NONE);
             }
         }
-        return new UserChoice(UserChoiceType.NONE);
     }
 
     public boolean resolveSudoku() {
@@ -176,20 +182,23 @@ public class SudokuController {
         boolean finishGame = false;
         board = new SudokuBoard();
         show(board.toString());
+        show(menu() + "\n");
         while (!finishGame) {
             UserChoice choice = getUserChoice();
             switch (choice.getChoiceType()) {
                 case EXIT:
+                    exitGame();
                     finishGame = true;
                     break;
                 case NONE:
                     break;
                 case NEW_GAME:
-                    board = new SudokuBoard();
-                    show(board.toString());
+                    startNewGame();
+                    break;
                 case SET_VALUE:
                     setValue(choice);
                     show(board.toString());
+                    show(menu() + "\n");
                     break;
                 case RESOLVE:
                     solveSudoku();
@@ -209,6 +218,8 @@ public class SudokuController {
     }
 
     private void setValue(UserChoice choice) {
+
+
         int column = choice.getColumn() - 1;
         int row = choice.getRow() - 1;
         int value = choice.getValue();

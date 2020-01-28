@@ -12,6 +12,7 @@ public class UserChoice {
         this.choiceType = choiceType;
     }
 
+
     public UserChoice(int column, int row, int value) {
         this.choiceType = UserChoiceType.SET_VALUE;
         this.row = row;
