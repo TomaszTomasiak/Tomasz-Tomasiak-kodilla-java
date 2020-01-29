@@ -1,9 +1,7 @@
 package com.kodilla.sudoku;
 
 public class UserChoice {
-
-    private static UserChoiceType choiceType;
-
+    private UserChoiceType choiceType;
     private int row;
     private int column;
     private int value;
@@ -11,7 +9,6 @@ public class UserChoice {
     public UserChoice(UserChoiceType choiceType) {
         this.choiceType = choiceType;
     }
-
 
     public UserChoice(int column, int row, int value) {
         this.choiceType = UserChoiceType.SET_VALUE;
@@ -35,8 +32,6 @@ public class UserChoice {
     public int getValue() {
         return value;
     }
-
-
 
     @Override
     public String toString() {

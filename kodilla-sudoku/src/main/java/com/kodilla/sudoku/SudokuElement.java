@@ -4,10 +4,8 @@ public class SudokuElement {
     private int value;
     public static int EMPTY = -1;
 
-
     public SudokuElement(int value) {
         this.value = value;
-
     }
 
     public int getValue() {
@@ -17,7 +15,5 @@ public class SudokuElement {
     public void setValue(int value) {
         this.value = value;
     }
-
-
 }
 

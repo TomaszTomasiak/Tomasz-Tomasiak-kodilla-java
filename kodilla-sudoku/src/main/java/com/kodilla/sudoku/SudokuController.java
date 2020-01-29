@@ -7,39 +7,27 @@ public class SudokuController {
     SudokuBoard board;
 
     public void solveSudoku() {
-
         if (!backtrackSolve()) {
             System.out.println("This sudoku can't be solved");
             startNewGame();
         }
-
     }
 
     public boolean isPossibleToPutHere(int r, int c, Integer value) {
-
-        // row check
         for (int j = 0; j < 9; j++) {
             if (board.boardOfElements[r][j].getValue() == value) {
                 return false;
             }
-        }
-
-        // column check
-        for (int i = 0; i < 9; i++) {
-            if (board.boardOfElements[i][c].getValue() == value) {
-                return false;
-            }
-        }
-
-        // box check
-        int boxRow = r - r % 3;
-        int boxColumn = c - c % 3;
-
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-
-                if (board.boardOfElements[boxRow + i][boxColumn + j].getValue() == value) {
+            for (int i = 0; i < 9; i++) {
+                if (board.boardOfElements[i][c].getValue() == value) {
                     return false;
+                }
+                if (i < 3 && j < 3) {
+                    int boxRow = r - r % 3;
+                    int boxColumn = c - c % 3;
+                    if (board.boardOfElements[boxRow + i][boxColumn + j].getValue() == value) {
+                        return false;
+                    }
                 }
             }
         }
@@ -52,11 +40,8 @@ public class SudokuController {
         boolean isEmptyField = false;
 
         for (int i = 0; i < 9 && !isEmptyField; i++) {
-
             for (int j = 0; j < 9 && !isEmptyField; j++) {
-
                 if (board.boardOfElements[i][j].getValue() == SudokuElement.EMPTY) {
-
                     rowIndex = i;
                     columnIndex = j;
                     isEmptyField = true;
@@ -69,19 +54,14 @@ public class SudokuController {
         }
 
         for (int possibleValue = 1; possibleValue <= 9; possibleValue++) {
-
             if (isPossibleToPutHere(rowIndex, columnIndex, possibleValue)) {
-
                 board.boardOfElements[rowIndex][columnIndex].setValue(possibleValue);
-
                 if (backtrackSolve()) {
                     return true;
                 }
-
                 board.boardOfElements[rowIndex][columnIndex].setValue(SudokuElement.EMPTY);
             }
         }
-
         return false;
     }
 
@@ -96,9 +76,7 @@ public class SudokuController {
     }
 
     public UserChoice getUserChoice() {
-
         String input = sc.nextLine();
-
         boolean isDigits = input.chars().allMatch(Character::isDigit);
         boolean digitsCorrectLength = input.length() == 3;
 
@@ -112,7 +90,6 @@ public class SudokuController {
 
             default:
                 if (isDigits && digitsCorrectLength) {
-
                     char setColumn = input.charAt(1);
                     char setRow = input.charAt(0);
                     char setValue = input.charAt(2);
@@ -122,14 +99,11 @@ public class SudokuController {
 
                     if (isPossibleToPutHere(row, column, value)) {
                         return new UserChoice(column, row, value);
-
                     } else {
                         System.out.println("You can not put the number: " + value + " here! Try a different number");
                         return new UserChoice(UserChoiceType.NONE);
                     }
-
                 } else {
-
                     return new UserChoice(UserChoiceType.NONE);
                 }
         }
@@ -178,7 +152,6 @@ public class SudokuController {
     }
 
     public boolean resolveSudoku() {
-
         boolean finishGame = false;
         board = new SudokuBoard();
         show(board.toString());
@@ -218,15 +191,12 @@ public class SudokuController {
     }
 
     private void setValue(UserChoice choice) {
-
-
         int column = choice.getColumn() - 1;
         int row = choice.getRow() - 1;
         int value = choice.getValue();
 
         try {
             setValueToSudokuElement(column, row, value);
-
         } catch (Exception e) {
             SudokuController.printIncorrectValueToSet(choice);
         }
@@ -250,5 +220,4 @@ public class SudokuController {
         boolean correctRow = row >= 1 && row <= 9;
         return correctColumn && correctRow;
     }
-
 }

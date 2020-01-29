@@ -1,17 +1,13 @@
 package com.kodilla.sudoku;
 
 public class SudokuBoard {
-
     SudokuElement[][] boardOfElements = new SudokuElement[9][9];
-
 
     public SudokuBoard() {
         for (int i = 0; i < 9; i++) {
-            for (int n =0; n < 9; n++) {
+            for (int n = 0; n < 9; n++) {
                 boardOfElements[i][n] = new SudokuElement(SudokuElement.EMPTY);
-
             }
-
         }
     }
 
