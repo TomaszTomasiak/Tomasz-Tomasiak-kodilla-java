@@ -13,25 +13,40 @@ public class SudokuController {
         }
     }
 
-    public boolean isPossibleToPutHere(int r, int c, Integer value) {
+    public boolean isPossibleToPutHere(int r, int c, int value) {
         for (int j = 0; j < 9; j++) {
-            if (board.boardOfElements[r][j].getValue() == value) {
+            if (alreadyHasValue(r, j, value)) {
                 return false;
             }
             for (int i = 0; i < 9; i++) {
-                if (board.boardOfElements[i][c].getValue() == value) {
+                if (alreadyHasValue(i, c, value)) {
                     return false;
                 }
                 if (i < 3 && j < 3) {
                     int boxRow = r - r % 3;
                     int boxColumn = c - c % 3;
-                    if (board.boardOfElements[boxRow + i][boxColumn + j].getValue() == value) {
+                    if (alreadyHasValue(boxRow + i, boxColumn + j, value)) {
                         return false;
                     }
                 }
             }
         }
         return true;
+    }
+
+    private boolean alreadyHasValue(int row, int column, int value) {
+        return board.boardOfElements[row][column].getValue() == value;
+    }
+
+    private void isSudokuElementEmpty(int rowIndex, int columnIndex) {
+        for (int i = 0; i < 9;  i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board.boardOfElements[i][j].getValue() == SudokuElement.EMPTY) {
+                    rowIndex = i;
+                    columnIndex = j;
+                }
+            }
+        }
     }
 
     public boolean backtrackSolve() {
@@ -64,6 +79,8 @@ public class SudokuController {
         }
         return false;
     }
+
+
 
     public String menu() {
         return "SUDOKU\n" +
@@ -109,29 +126,23 @@ public class SudokuController {
         }
     }
 
-    public UserChoice startNewGame() {
-        boolean isCorrect = false;
-        while (!isCorrect) {
-            System.out.println("Do you want to start a new game? Y/N");
-            String input = sc.nextLine().toUpperCase();
+    public void startNewGame() {
 
-            if (input.equals("Y")) {
-                for (int i = 0; i < 9; i++) {
-                    for (int j = 0; j < 9; j++) {
-                        board.boardOfElements[i][j].setValue(SudokuElement.EMPTY);
-                    }
+        System.out.println("Do you want to start a new game? Y/N");
+        String input = sc.nextLine().toUpperCase();
+
+        if (input.equals("Y")) {
+            for (int i = 0; i < 9; i++) {
+                for (int j = 0; j < 9; j++) {
+                    board.boardOfElements[i][j].setValue(SudokuElement.EMPTY);
                 }
-                board = new SudokuBoard();
-                resolveSudoku();
-                isCorrect = true;
-                return new UserChoice(UserChoiceType.NEW_GAME);
             }
-            if (input.equals("N")) {
-                isCorrect = true;
-                return new UserChoice(UserChoiceType.EXIT);
-            }
+            board = new SudokuBoard();
+            resolveSudoku();
         }
-        return new UserChoice(UserChoiceType.NONE);
+        if (input.equals("N")) {
+            exitGame();
+        }
     }
 
     public void exitGame() {
